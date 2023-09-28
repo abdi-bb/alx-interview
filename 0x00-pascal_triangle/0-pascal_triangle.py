@@ -1,4 +1,12 @@
+#!/usr/bin/python3
+
+'''
+Module: pascal_triangle
+'''
+
+
 def pascal_triangle(n):
+    '''Returns Pascal's Triangle'''
     if n <= 0:
         return []
 
