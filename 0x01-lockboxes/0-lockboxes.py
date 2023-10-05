@@ -6,7 +6,7 @@ Module: '0-lockboxes'
 from typing import List
 
 
-def canUnlockAll(boxes: List[List[int]]) -> bool:
+def canUnlockAll(boxes):
     ''''
     Determines if all the boxes can be opened.
     '''
