@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+'''
+Module: '0-lockboxes'
+'''
+
+
 def canUnlockAll(boxes):
     """
     Determines if all the boxes can be opened.
