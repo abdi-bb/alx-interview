@@ -16,7 +16,7 @@ try:
     for line in sys.stdin:
         data = line.split()
         if len(data) >= 3:
-            status_code, file_size = data[-2], data[-1]
+            status_code, file_size = int(data[-2]), int(data[-1])
         line_count += 1
         total_size += int(file_size)
         if int(status_code) in freq_of_status_code:
