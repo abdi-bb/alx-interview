@@ -1,39 +1,39 @@
 #!/usr/bin/python3
-'''
-Module: '0-status'
-'''
+"""
+Module: '0-stats'
+"""
 
 import sys
 
 if __name__ == '__main__':
-    # intialize variables
-    line_count = 0
-    total_size = 0
+
+    filesize, count = 0, 0
     codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
-    status = {k: 0 for k in codes}
+    stats = {k: 0 for k in codes}
+
+    def print_stats(stats: dict, file_size: int) -> None:
+        print("File size: {:d}".format(filesize))
+        for k, v in sorted(stats.items()):
+            if v:
+                print("{}: {}".format(k, v))
 
     try:
         for line in sys.stdin:
-            line_count += 1
+            count += 1
             data = line.split()
             try:
-                file_size, status_code = int(data[-1]), data[-2]
-                total_size += file_size
-                if status_code in status:
-                    # increase the frequency of the key
-                    status[status_code] += 1
+                status_code = data[-2]
+                if status_code in stats:
+                    stats[status_code] += 1
             except BaseException:
                 pass
-
-            if line_count % 10 == 0:
-                print("File size: {:d}".format(total_size))
-                for key, value in sorted(status.items()):
-                    if value:
-                        print("{}: {}".format(key, value))
-
+            try:
+                filesize += int(data[-1])
+            except BaseException:
+                pass
+            if count % 10 == 0:
+                print_stats(stats, filesize)
+        print_stats(stats, filesize)
     except KeyboardInterrupt:
-        print("File size: {:d}".format(total_size))
-        for key, value in sorted(status.items()):
-            if value:
-                print("{}: {}".format(key, value))
+        print_stats(stats, filesize)
         raise
