@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-Module: '0-stats'
+Module: '0-freq_of_status_code'
 '''
 
 import sys
@@ -25,14 +25,14 @@ try:
             pass
 
         if line_count % 10 == 0:
-            print(f'File size: {total_size:d}')
+            print("File size: {:d}".format(total_size))
             for key, value in sorted(freq_of_status_code.items()):
-                if value > 0:
-                    print(f'{key}: {value}')
+                if value:
+                    print("{}: {}".format(key, value))
 
 except KeyboardInterrupt:
-    print(f'File size: {total_size:d}')
+    print("File size: {:d}".format(total_size))
     for key, value in sorted(freq_of_status_code.items()):
-        if value > 0:
-            print(f'{key}: {value}')
+        if value:
+            print("{}: {}".format(key, value))
     raise
