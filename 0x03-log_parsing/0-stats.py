@@ -23,19 +23,20 @@ try:
                 freq_of_status_code[status_code] += 1
         except BaseException:
             pass
-
+        # print after counting 10 lines
         if line_count % 10 == 0:
             print(f'File size: {total_size:d}')
             for key, value in sorted(freq_of_status_code.items()):
                 if value > 0:
                     print(f'{key}: {value}')
-
+    # print after finishing the lines from stdin
     print(f'File size: {total_size:d}')
     for key, value in sorted(freq_of_status_code.items()):
         if value > 0:
             print(f'{key}: {value}')
 
 except KeyboardInterrupt:
+    # print if 'ctrl + c'
     print(f'File size: {total_size:d}')
     for key, value in sorted(freq_of_status_code.items()):
         if value > 0:
