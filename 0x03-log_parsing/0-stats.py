@@ -47,6 +47,7 @@ except KeyboardInterrupt:
     raise
 
 '''
+# printing function
 def print_metrics(stat_dict, total_size):
     print(f'File size: {total_size:d}')
     for key, value in sorted(stat_dict.items()):
