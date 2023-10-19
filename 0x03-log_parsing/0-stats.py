@@ -24,7 +24,7 @@ try:
             freq_of_status_code[int(status_code)] += 1
 
         if line_count == 10:
-            print(f'File size: {total_size}')
+            print(f'File size: {total_size:d}')
             for key in sorted(freq_of_status_code.keys()):
                 if freq_of_status_code[key] > 0:
                     print(f'{key}: {int(freq_of_status_code[key])}')
