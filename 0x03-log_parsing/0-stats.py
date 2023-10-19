@@ -1,39 +1,43 @@
 #!/usr/bin/python3
-"""
+'''
 Module: '0-stats'
-"""
+'''
 
 import sys
 
-if __name__ == '__main__':
+# intialize variables
+line_count = 0
+total_size = 0
+freq_of_status_code = {'200': 0, '301': 0, '400': 0,
+                       '401': 0, '403': 0, '404': 0, '405': 0, '500': 0}
 
-    filesize, count = 0, 0
-    codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
-    stats = {k: 0 for k in codes}
+try:
+    for line in sys.stdin:
+        line_count += 1
+        data = line.split()
+        try:
+            file_size, status_code = int(data[-1]), data[-2]
+            total_size += file_size
+            if status_code in freq_of_status_code:
+                # increase the frequency of the key
+                freq_of_status_code[status_code] += 1
+        except BaseException:
+            pass
 
-    def print_stats(stats: dict, file_size: int) -> None:
-        print("File size: {:d}".format(filesize))
-        for k, v in sorted(stats.items()):
-            if v:
-                print("{}: {}".format(k, v))
+        if line_count % 10 == 0:
+            print(f'File size: {total_size:d}')
+            for key, value in sorted(freq_of_status_code.items()):
+                if value > 0:
+                    print(f'{key}: {value}')
 
-    try:
-        for line in sys.stdin:
-            count += 1
-            data = line.split()
-            try:
-                status_code = data[-2]
-                if status_code in stats:
-                    stats[status_code] += 1
-            except BaseException:
-                pass
-            try:
-                filesize += int(data[-1])
-            except BaseException:
-                pass
-            if count % 10 == 0:
-                print_stats(stats, filesize)
-        print_stats(stats, filesize)
-    except KeyboardInterrupt:
-        print_stats(stats, filesize)
-        raise
+    print(f'File size: {total_size:d}')
+    for key, value in sorted(freq_of_status_code.items()):
+        if value > 0:
+            print(f'{key}: {value}')
+
+except KeyboardInterrupt:
+    print(f'File size: {total_size:d}')
+    for key, value in sorted(freq_of_status_code.items()):
+        if value > 0:
+            print(f'{key}: {value}')
+    raise
