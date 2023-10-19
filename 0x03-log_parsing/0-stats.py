@@ -4,7 +4,6 @@ Module: '0-stats'
 '''
 
 import sys
-import re
 
 # intialize variables
 line_count = 0
@@ -17,27 +16,23 @@ try:
         line_count += 1
         data = line.split()
         try:
-            status_code, file_size = int(data[-2]), int(data[-1])
-            total_size += int(file_size)
-            if int(status_code) in freq_of_status_code:
+            file_size, status_code = int(data[-1]), int(data[-2])
+            total_size += file_size
+            if status_code in freq_of_status_code:
                 # increase the frequency of the key
-                freq_of_status_code[int(status_code)] += 1
+                freq_of_status_code[status_code] += 1
         except BaseException:
             pass
 
-        if line_count == 10:
+        if line_count % 10 == 0:
             print(f'File size: {total_size:d}')
-            for key in sorted(freq_of_status_code.keys()):
-                if freq_of_status_code[key] > 0:
-                    print(f'{key}: {int(freq_of_status_code[key])}')
-            # reset the variables back to their intial value
-            line_count = 0
-            total_size = 0
-            freq_of_status_code = {200: 0, 301: 0, 400: 0,
-                                   401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+            for key, value in sorted(freq_of_status_code.items()):
+                if value > 0:
+                    print(f'{key}: {value}')
+
 except KeyboardInterrupt:
     print(f'File size: {total_size:d}')
-    for key in sorted(freq_of_status_code.keys()):
-        if freq_of_status_code[key] > 0:
-            print(f'{key}: {int(freq_of_status_code[key])}')
+    for key, value in sorted(freq_of_status_code.items()):
+        if value > 0:
+            print(f'{key}: {value}')
     raise
