@@ -13,21 +13,24 @@ def validUTF8(data):
 
     for num in data:
         if bytes_tobe_checked == 0:
-            if num & 128 == 0: # '0'
+            # if bin(num)[2:].zfill(8)[:1] == '0'
+            if num & 128 == 0:
                 bytes_tobe_checked = 0
-            elif num & 224 == 192: # '110'
+            # elif bin(num)[2:].zfill(8)[:3] == '110'
+            elif num & 224 == 192:
                 bytes_tobe_checked = 1
-            elif num & 240 == 224: # '1110'
+            # elif bin(num)[2:].zfill(8)[:4] == '1110'
+            elif num & 240 == 224:
                 bytes_tobe_checked = 2
-            elif num & 248 == 240: # '11110'
+            # elif bin(num)[2:].zfill(8)[:5] == '11110'
+            elif num & 248 == 240:
                 bytes_tobe_checked = 3
             else:
                 return False
         else:
-            if num & 192 != 128: # '10'
+            # if bin(num)[2:].zfill(8)[:2] == '10'
+            if num & 192 != 128:
                 return False
             bytes_tobe_checked -= 1
-    if bytes_tobe_checked == 0:
-        return True
 
-    return False
+    return bytes_tobe_checked == 0
