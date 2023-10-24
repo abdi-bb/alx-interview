@@ -4,6 +4,7 @@ Module: '0-validate_utf8'
 Checks if a list of integers are a valid utf8 format
 '''
 
+
 def validUTF8(data):
     '''
     Returns True/False indicating a valid utf format or not
