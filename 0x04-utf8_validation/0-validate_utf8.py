@@ -14,7 +14,7 @@ def validUTF8(data):
     for num in data:
         bin_num = format(num, '08b')
         if bytes_tobe_checked == 0:
-            if bin_num[0] == '0':
+            if bin_num[:1] == '0':
                 bytes_tobe_checked = 0
             elif bin_num[:3] == '110':
                 bytes_tobe_checked = 1
