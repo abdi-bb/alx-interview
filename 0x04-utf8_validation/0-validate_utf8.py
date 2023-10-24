@@ -28,5 +28,7 @@ def validUTF8(data):
             if bin_num[:2] != '10':
                 return False
             bytes_tobe_checked -= 1
+    if bytes_tobe_checked == 0:
+        return True
 
-    return bytes_tobe_checked == 0
+    return False
