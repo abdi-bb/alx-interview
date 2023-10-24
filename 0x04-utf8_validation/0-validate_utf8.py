@@ -13,18 +13,18 @@ def validUTF8(data):
 
     for num in data:
         if bytes_tobe_checked == 0:
-            if num & 128 == 0:
+            if num & 128 == 0: # '0'
                 bytes_tobe_checked = 0
-            elif num & 224 == 192:
+            elif num & 224 == 192: # '110'
                 bytes_tobe_checked = 1
-            elif num & 240 == 224:
+            elif num & 240 == 224: # '1110'
                 bytes_tobe_checked = 2
-            elif num & 248 == 240:
+            elif num & 248 == 240: # '11110'
                 bytes_tobe_checked = 3
             else:
                 return False
         else:
-            if num & 192 != 128:
+            if num & 192 != 128: # '10'
                 return False
             bytes_tobe_checked -= 1
     if bytes_tobe_checked == 0:
