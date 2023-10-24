@@ -12,9 +12,9 @@ def validUTF8(data):
     bytes_tobe_checked = 0
 
     for num in data:
-        if type(num) != int or num < 0 or num > 1114111:
+        if not isinstance(num, int) or num < 0 or num > 1114111:
             return False
-        bin_num = bin(num)[2:].zfill(8)
+        bin_num = format(num, '08b')
         if bytes_tobe_checked == 0:
             if bin_num[0] == '0':
                 bytes_tobe_checked = 0
