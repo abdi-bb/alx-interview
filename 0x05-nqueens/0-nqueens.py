@@ -6,59 +6,54 @@ Module: '0-nqueens'
 import sys
 
 
-def backtrack(r, n, cols, pos, neg, board):
+def place_queens(n, row, safe_queen_positions):
     """
-    backtrack function to find solution
+    Parameters: n is an int that sets
+                board size and # of queens
+                row is row that we consider currently
+    Prints: All possible solutions to placement
+            (safe_queen_positions)
     """
-    if r == n:
-        res = []
-        for l in range(len(board)):
-            for k in range(len(board[l])):
-                if board[l][k] == 1:
-                    res.append([l, k])
-        print(res)
-        return
+    for col in range(n):
+        is_safe = True
+        for position in safe_queen_positions:
+            # Check for column
+            if col == position[1]:
+                is_safe = False
+                break
+            # Check for positive diagonal
+            if row - position[0] == col - position[1]:
+                is_safe = False
+                break
+            # check for negative diagonal
+            if position[0] - row == col - position[1]:
+                is_safe = False
+                break
 
-    for c in range(n):
-        if c in cols or (r + c) in pos or (r - c) in neg:
-            continue
-
-        cols.add(c)
-        pos.add(r + c)
-        neg.add(r - c)
-        board[r][c] = 1
-
-        backtrack(r+1, n, cols, pos, neg, board)
-
-        cols.remove(c)
-        pos.remove(r + c)
-        neg.remove(r - c)
-        board[r][c] = 0
-
-
-def nqueens(n):
-    """
-    Solution to nqueens problem
-    """
-    cols = set()
-    pos_diag = set()
-    neg_diag = set()
-    board = [[0] * n for i in range(n)]
-
-    backtrack(0, n, cols, pos_diag, neg_diag, board)
+        if is_safe:
+            safe_queen_positions.append([row, col])
+            if row != n - 1:
+                place_queens(n, row + 1, safe_queen_positions)
+            else:
+                print(safe_queen_positions)
+            del safe_queen_positions[-1]
 
 
-if __name__ == "__main__":
-    n = sys.argv
-    if len(n) != 2:
+def main():
+    if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
     try:
-        nn = int(n[1])
-        if nn < 4:
-            print("N must be at least 4")
-            sys.exit(1)
-        nqueens(nn)
+        n = int(sys.argv[1])
     except ValueError:
-        print("N must be a number")
+        print('N must be a number')
         sys.exit(1)
+    if n < 4:
+        print("N must be at least 4")
+        sys.exit(1)
+
+    place_queens(n, row=0, safe_queen_positions=[])
+
+
+if __name__ == '__main__':
+    main()
