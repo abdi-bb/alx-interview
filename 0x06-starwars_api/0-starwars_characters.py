@@ -13,12 +13,6 @@ if len(sys.argv) != 2:
 
 movie_id = sys.argv[1]
 
-if len(sys.argv) != 2:
-    print("Usage: python script.py <Movie_ID>")
-    sys.exit(1)
-
-movie_id = sys.argv[1]
-
 url = f"https://swapi.dev/api/films/{movie_id}/"
 
 response = requests.get(url)
@@ -34,4 +28,3 @@ for character_url in characters:
     character_response = requests.get(character_url)
     character_data = character_response.json()
     print(character_data['name'])
-
