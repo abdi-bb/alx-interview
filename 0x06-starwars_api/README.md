@@ -1,1 +1,1 @@
-# User authentication service
+# Star Wars API
