@@ -20,5 +20,5 @@ def makeChange(coins, total):
             num_coins += 1
             if sum_coins == total:
                 return num_coins
-        i += 1
+        idx += 1
     return -1
