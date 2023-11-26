@@ -10,7 +10,7 @@ def makeChange(coins, total):
         return 0
 
     coins.sort(reverse=True)
-    
+
     len_coins = len(coins)
     num_coins = 0
     sum_coins = 0
