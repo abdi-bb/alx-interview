@@ -20,7 +20,7 @@ def isWinner(x, nums):
         return None
     maria_win, ben_win = 0, 0
     for _, n in zip(range(x), nums):
-        primes_count = sum(1 for i in range(1, n + 1) if isPrime(i))
+        primes_count = sum(1 for i in range(1, n + 1) if isPrime(i - 1))
         ben_win += primes_count % 2 == 0
         maria_win += primes_count % 2 == 1
     if maria_win == ben_win:
