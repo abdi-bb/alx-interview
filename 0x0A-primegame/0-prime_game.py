@@ -25,7 +25,7 @@ def isWinner(x, nums):
     ben_score = 0
     num_of_rounds = 0
 
-    while num_of_rounds <= x:
+    while num_of_rounds < x:
         for n in nums:
             prime_num_in_a_round = sum(
                 1 for i in range(1, n + 1) if isPrime(i))
