@@ -16,6 +16,8 @@ def isPrime(n):
 
 def isWinner(x, nums):
     '''main func'''
+    if x < 1 or not nums:
+        return None
     maria_win, ben_win = 0, 0
     for _, n in zip(range(x), nums):
         primes_count = sum(1 for i in range(1, n + 1) if isPrime(i))
