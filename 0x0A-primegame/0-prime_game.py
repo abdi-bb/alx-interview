@@ -4,40 +4,41 @@ Module: '0-prime_game'
 '''
 
 
-def isPrime(num):
-    '''
-    Returns bool to indicate prime or not
-    '''
-    if num < 2:
+def is_prime(n):
+    '''helper func'''
+    if n < 2:
         return False
-    for i in range(2, int(num ** 0.5) + 1):
-        if num % i == 0:
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
             return False
     return True
 
 
 def isWinner(x, nums):
-    '''
-    From Ben and Maria, assuming Maria always goes first,
-    return who the winner is
-    '''
-    maria_score = 0
-    ben_score = 0
-
+    '''main func'''
+    maria = 0
+    ben = 0
     for n in nums:
-        prime_num_in_a_round = sum(
-            1 for i in range(1, n + 1) if isPrime(i))
-
-        # If the count of prime_num_in_a_round is odd, Maria wins;
-        # otherwise, Ben wins
-        if prime_num_in_a_round % 2 != 0:
-            maria_score += 1
-        else:
-            ben_score += 1
-
-    if maria_score > ben_score:
-        return 'Maria'
-    elif ben_score > maria_score:
-        return 'Ben'
+        numbers = list(range(1, n + 1))
+        maria_turn = True
+        while numbers:
+            can_move = False
+            for i in reversed(numbers):
+                if is_prime(i):
+                    # Remove the number and its multiples from the list
+                    numbers = [j for j in numbers if j % i != 0]
+                    can_move = True
+                    break
+            if not can_move:
+                if maria_turn:
+                    ben += 1
+                else:
+                    maria += 1
+                break
+            maria_turn = not maria_turn
+    if maria > ben:
+        return "Maria"
+    elif ben > maria:
+        return "Ben"
     else:
         return None
